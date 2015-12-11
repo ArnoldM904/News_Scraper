@@ -10,9 +10,9 @@ r = praw.Reddit(
                'Created by the #redditbot Reddit Slack community'
                'Designed to scrape /r/news to help identify trending news.'
                 )
-o = OAuth2Util.OAuth2Util(r, server_mode=True) #Adds Authorization 
+o = OAuth2Util.OAuth2Util(r, server_mode=True) #Adds Authorization
 subreddit = r.get_subreddit("news")
-NEWS_TITLES = '/output/news_titles.txt'
+NEWS_TITLES = 'output/news_titles.txt'
 loop_count = 0
 
 def scrape_news():
@@ -25,7 +25,7 @@ def scrape_news():
             try:
                 with open(NEWS_TITLES,'r') as cache:
                     existing = cache.read().splitlines()
-                    
+
                 hot_titles = subreddit.get_hot(limit=50)
                 with open(NEWS_TITLES, 'a+') as cache:
                     for title in hot_titles:
@@ -38,7 +38,7 @@ def scrape_news():
             break
 
 if __name__ == '__main__':
-	while True:
+    while True:
     	try:
         	scrape_news()
     	except requests.ConnectionError as e:
