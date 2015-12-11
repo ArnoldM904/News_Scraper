@@ -6,19 +6,19 @@ import OAuth2Util   # Allows for easier handling of OAuth2 with PRAW.
 import os.path
 
 r = praw.Reddit(
-    user_agent='Reddit /r/news Scraper - version 0.2.2'
+    user_agent='Reddit /r/news Scraper - version 0.2.3'
                'Created by the #redditbot Reddit Slack community'
                'Designed to scrape /r/news to help identify trending news.'
                 )
 o = OAuth2Util.OAuth2Util(r, server_mode=True) #Adds Authorization 
 subreddit = r.get_subreddit("news")
-NEWS_TITLES = 'news_titles.txt'
+NEWS_TITLES = '/output/news_titles.txt'
 loop_count = 0
 
 def scrape_news():
     '''
     Scrapes the title of every news article not yet stored and records
-    them into news_titles.txt
+    them into news_titles.txt located in the output directory
     '''
     for i in range(0,2):
         while True:
@@ -37,12 +37,13 @@ def scrape_news():
                 continue
             break
 
-while True:
-    try:
-        scrape_news()
-    except requests.ConnectionError as e:
-        print(e)
-        time.sleep(60)
-    loop_count += 1
-    print("Program loop #{0} completed successfully.".format(loop_count))
-    time.sleep(1200)
+if __name__ == '__main__':
+	while True:
+    	try:
+        	scrape_news()
+    	except requests.ConnectionError as e:
+        	print(e)
+        	time.sleep(60)
+    	loop_count += 1
+    	print("Program loop #{0} completed successfully.".format(loop_count))
+    	time.sleep(1200)
